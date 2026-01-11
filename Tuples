@@ -1,0 +1,107 @@
+from random import randint
+
+print('-=-'*15)
+print('\033[4;32mExercises Menu\033[m')
+print('-=-'*15)
+
+print('[ 72 ] Basic tuples')
+print('[ 73 ] Brazillians soccer competition')
+print('[ 74 ] Random numbers')
+print('[ 75 ] Tuples + Input')
+print('[ 76 ] Lists')
+print('[ 77 ] Vowels')
+
+ex = int(input('Type in the number of the exercise you want to execute: '))
+
+if ex == 72:
+    numberinwords = ('Zero', 'One', 'Two', 'Three', 'Four', 'Five',
+                     'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven',
+                     'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen',
+                     'Seventeen', 'Eighteen', 'Nineteen', 'Twenty')
+    while True:
+        user_input = int(input('Type in a number ranging from zero to twenty:'))
+        if 0 <= user_input <= 20:
+            break
+        print('Please, enter a number between zero and twenty.')
+        print(f'The number {user_input}, in words, is {numberinwords[user_input]}')
+
+elif ex == 73:
+    ranks = ('Flamengo', 'Palmeiras', 'Cruzeiro', 'Mirassol', 'Fluminense',
+             'Botafogo', 'Bahia', 'São Paulo', 'Gremio', 'Red Bull Bragantino', 'Galo', 'Santos',
+             'Corinthians', 'Vasco', 'Vitória', 'Internacional', 'Ceará', 'Fortaleza', 'Juventude', 'Recife')
+    print(f'The top five strongest teams in the Brasileirão are:')
+    for c in ranks[0:5]:
+        print(f'{c}', end=', ')
+    print('\n')
+    print(f'The top 4 weakest teams in the Brasileirão are:')
+    for c in ranks[-4:]:
+        print(f'{c}', end=', ')
+    print(f'\nThe teams, in alphabetical order are {sorted(ranks)}')
+
+elif ex == 74:
+    numbers = (randint(0,10), randint(0,10), randint(0,10), randint(0,10),
+               randint(0,10))
+    smallestnumber = numbers[0]
+    largestnumber = numbers[0]
+    print(f'The sorted numbers were: ', end='')
+    for n in numbers:
+        print(f'{n} ', end='')
+        if n < smallestnumber:
+            smallestnumber = n
+        if n > largestnumber:
+            largestnumber = n
+    print(f'\nThe smallest number is {smallestnumber},'
+          f' the largest number is {largestnumber}.')
+
+
+elif ex == 75:
+    n1 = int(input('Type in an integer number: '))
+    n2 = int(input('Type in an integer number: '))
+    n3 = int(input('Type in an integer number: '))
+    n4 = int(input('Type in an integer number: '))
+    numbers = (n1, n2, n3, n4)
+    print(f'There were {numbers.count(9)} number nines typed')
+    evens = []
+    if 3 in numbers:
+        print(f'The first number three was typed in position {numbers.index(3)+1}')
+    else:
+        print('There were no number threes typed')
+    for n in numbers:
+        if n % 2 == 0:
+            evens.append(n)
+    print(f'The even numbers are: {evens}')
+
+elif ex == 76:
+    print('-' * 30)
+    print('            PRICES')
+    print('-' * 30)
+
+    lists = (
+        ['Pencil', 3.00],
+        ['Eraser', 4.50],
+        ['Notebook', 20.00],
+        ['Pencil Case', 30.00],
+        ['Ruler', 6.00],
+        ['Backpack', 250.00]
+    )
+
+    for item in lists:
+        print(f'{item[0]:.<30}R${item[1]:>7.2f}')
+
+
+
+
+elif ex == 77:
+    words = ('Samovar', 'Studying', 'Spongebob', 'Silver')
+    vowels = ('a', 'e', 'i', 'o', 'u')
+    for word in words:
+        print(f'\n In the word {word} we have ', end='')
+        for letter in word:
+            if letter in vowels:
+                print(letter, end='')
+
+
+
+
+
+
