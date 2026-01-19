@@ -146,3 +146,138 @@ elif ex == 83:
         print('The expression is valid')
     else:
         print('The expression is invalid')
+
+elif ex == 84:
+    people = list()
+    data = list()
+    heavy = list()
+    light = list()
+    heaviest = lightest = counter = 0
+    while True:
+        data.append(str(input('Type in your name: ')))
+        data.append(int(input('Type in your weight: ')))
+        people.append(data[:])
+        data.clear()
+        if counter == 0:
+            heaviest = people[0][1]
+            lightest = people[0][1]
+            heavy.append(people[0])
+            light.append(people[0])
+        counter += 1
+        cont = str(input('Type Y/N to continue or not: ')).upper()[0]
+        while cont not in 'YN':
+            cont = str(input('Type Y/N to continue or not: ')).upper()[0]
+        if people[-1][1] > heaviest:
+            heavy.clear()
+            heaviest = people[-1][1]
+            heavy.append(people[-1])
+        if people [-1][1] == heaviest and people[-1] not in heavy:
+            heavy.append(people[-1])
+        if people [-1][1] < lightest:
+            light.clear()
+            lightest = people[-1][1]
+            light.append(people[-1])
+        if people [-1][1] == lightest and people[-1] not in light:
+            light.append(people[-1])
+        if cont == 'N':
+            break
+    print(f'{len(people)} people have been inserted.')
+    print(f'The heaviest person is {heavy}, with {heaviest} kilos')
+    print(f'The lightest person is {light}, with {lightest} kilos')
+
+elif ex == 85:
+    numbers = [[], []]
+    for n in range(0,7):
+        number = int(input(f'Type in an positive integer number {n+1}/7: '))
+        while number < 0:
+            number = int(input('Type in a positive integer number: '))
+        if number % 2 == 0:
+            numbers[0].append(number)
+        else:
+            numbers[1].append(number)
+
+    print(f'The evens inserted were {sorted(numbers[0])}, and the odds, {sorted(numbers[1])}')
+
+elif ex == 86:
+    numbers = []
+    for i in range(3):
+        row = []
+        for j in range(3):
+            number = int(input(f'Type in a number for the position [{i}][{j}]: '))
+            row.append(number)
+        numbers.append(row)
+
+    print(f'The simple display you inserted, in a 3x3 grid, would be like:')
+    for row in numbers:
+        print(row)
+
+elif ex == 87:
+    numbers = []
+    evensadd = 0
+    lastcolumnsum = 0
+    larg_sec = 0
+    for l in range(3):
+        row = []
+        for c in range(3):
+            number = int(input(f'Type in a number for the position [{l}][{c}]: '))
+            if number % 2 == 0:
+                evensadd += number
+            if l == 1 and c == 0:
+                larg_sec = number
+            if l == 1 and c != 0:
+                if number > larg_sec:
+                    larg_sec = number
+            if c == 2:
+                lastcolumnsum += number
+            row.append(number)
+        numbers.append(row)
+    print(f'The sum of the evens is {evensadd},\n'
+          f'The third column sum is {lastcolumnsum},\n'
+          f'The biggest value in the second line is {larg_sec}\n')
+    for row in numbers:
+        print(row)
+
+elif ex == 88:
+    gambling = int(input('How many games would you like?: '))
+    games = []
+    print(f'SORTING {gambling} GAMES!')
+    for game in range(gambling):
+        data = []
+        while len(data) < 6:
+            number = (randint(1,60))
+            if number not in data:
+                data.append(number)
+        data.sort()
+        games.append(data[:])
+        data.clear()
+        print(f'Game {game + 1}: {games[game]}')
+
+elif ex == 89:
+    students = []
+    data = []
+    while True:
+        data.append(str(input('Name: ')))
+        data.append(int(input('Grade 1: ')))
+        data.append(int(input('Grade 2: ')))
+        cont = str(input('Type Y/N to continue or not: ')).upper()[0]
+        while cont not in 'YN':
+            cont = str(input('Please, type in Y for yes or N for no: ')).upper()[0]
+        students.append(data[:])
+        data.clear()
+        if cont == 'N':
+            break
+    print(f'{"No.":<4}{"Name":<15}{"Average":>8}')
+    print('-' * 30)
+
+    for i, student in enumerate(students):
+        avg = (student[1] + student[2]) / 2
+        print(f'{i:<4}{student[0]:<15}{avg:>8.1f}')
+    print('-' * 30)
+    i = int(input('Show grades of which student? (999 stops) '))
+    while i != 999:
+        print(f"{students[i][0]}'s grades are: {students[i][1:]}")
+        cont = str(input('Do you want to see another students grades? (Y/N) ')).upper()[0]
+        while cont not in 'YN':
+            cont = str(input('Please insert a valid response: ')).upper()[0]
+        if cont == 'N':
+            break
