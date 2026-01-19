@@ -1,0 +1,170 @@
+from random import randint
+from datetime import datetime
+print('-=-' * 10)
+print('\033[4;31mExercises Menu\033[m')
+print('-=-' * 10)
+
+print('[ 90 ] Simple dictionary')
+print('[ 91 ] Craps')
+print('[ 92 ] Big dictionary')
+print('[ 93 ] Soccer player')
+print('[ 94 ] Lists + dictionaries')
+print('[ 95 ] Soccer playerS')
+
+ex = int(input('Please insert the number of the exercise you want to execute: '))
+
+if ex == 90:
+    student = {}
+    student['Name'] = str(input('Please insert the name of the student: '))
+    student['Grade Average'] = float(input('Please insert the students grade average (0 to 10): '))
+    if student['Grade Average'] >= 7.0:
+        student['Status'] = 'Passed'
+    else:
+        student['Status'] = 'Failed'
+    print(f"{student['Name']}'s grade average is {student['Grade Average']}, so he has {student['Status'].lower()}")
+
+elif ex == 91:
+    player = {}
+    winner = {}
+    for play in range(4):
+        player['Name'] = str(input('Please insert the name of the player: '))
+        player['Dice'] = randint(1, 6)
+        print(f'{player["Name"]} has got a number {player["Dice"]}')
+        if play == 0 or player['Dice'] > winner['Dice']:
+            winner = player.copy()
+
+    print(f"{winner['Name']} has won, with a dice of number {winner['Dice']}")
+
+elif ex == 92:
+    person = {'Name': str(input('Please insert the name of the person: ')),
+              'Birth': int(input('Please insert the birth of the person: ')),
+              'Job': int(input('Please insert how much time the person has been working: '))
+              }
+    person['Age'] = datetime.today().year - person['Birth']
+    if person['Job'] == 0:
+        print(f"Person's name is {person['Name']}")
+        print(f"{person['Name']} has born in {person['Birth']}")
+        print(f"He has never worked.")
+    else:
+        person['Year of hire'] = int(input('Please insert the year of your hire: '))
+        person['Wage'] = int(input('Please insert the wage: '))
+        person['Retire'] = (person['Year of hire'] + 35) - person['Birth']
+
+        print(f"{person['Name']}'s year of hire is {person['Year of hire']}")
+        print(f"{person['Name']}'s wage is {person['Wage']}")
+        print(f"{person['Name']} will retire with {person['Retire']}")
+
+elif ex == 93:
+    player = {'Name': str(input('Please insert the name of the player: ')),
+              'Matches': int(input(f'Please insert the amount of matches he has played: '))}
+    goal = []
+    goals_total = 0
+    for match in range(player['Matches']):
+        goals = int(input(f'Please insert the number of goals he has scored in match No.{match + 1}: '))
+        goal.append(goals)
+        goals_total += goals
+    player['Goals'] = goals_total
+    print('-=-' * 10)
+    print(f"{player['Name']} has scored {player['Goals']} goals in {player['Matches']} matches.")
+    print('-=-' * 10)
+    for match in range(player['Matches']):
+        print(f'-> In the match {match + 1}, he scored {goal[match]} goals.')
+
+elif ex == 94:
+    people = []
+    women = []
+    over_average = []
+    age_average = []
+    c = 0
+
+    while True:
+        person = {}
+        person['Name'] = input('Please insert the name of the person: ')
+        person['Age'] = int(input('Please insert the age of the person: '))
+        person['Sex'] = input('Please insert the sex of the person [M/F]: ').upper()[0]
+
+        while person['Sex'] not in 'MF':
+            person['Sex'] = input('Insert a value of M for male or F for female: ').upper()[0]
+
+        people.append(person.copy())
+        age_average.append(person['Age'])
+        c += 1
+
+        if person['Sex'] == 'F':
+            women.append(person.copy())
+
+        choice = input('Do you want to continue? [Y/N]: ').upper()[0]
+        while choice not in 'YN':
+            choice = input('Please, insert Y to continue or N to exit: ').upper()[0]
+
+        if choice == 'N':
+            break
+
+    average = sum(age_average) / len(age_average)
+
+    print(f'{c} people were inserted')
+    print(f'The age average is {average:.2f}')
+
+    print('The women inserted were:')
+    for p in women:
+        print(p['Name'])
+
+    print('The people with age over the average are:')
+    for p in people:
+        if p['Age'] > average:
+            over_average.append(p['Name'])
+
+    print(over_average)
+
+elif ex == 95:
+    players = []
+    code = 0
+
+    while True:
+        player = {}
+        player['Code'] = code
+        player['Name'] = input('Please insert the name of the player: ')
+        player['Matches'] = int(input('Please insert the amount of matches he has played: '))
+
+        while player['Matches'] <= 0:
+            player['Matches'] = int(input('Please insert a valid amount of matches: '))
+
+        player['Goals'] = []
+        player['TotalGoals'] = 0
+
+        for match in range(player['Matches']):
+            goals = int(input(f'Goals in match {match + 1}: '))
+            player['Goals'].append(goals)
+            player['TotalGoals'] += goals
+
+        players.append(player.copy())
+        code += 1
+
+        choice = input('Do you want to continue? [Y/N]: ').upper()[0]
+        while choice not in 'YN':
+            choice = input('Please insert a valid choice: ').upper()[0]
+
+        if choice == 'N':
+            break
+
+    print('-' * 45)
+    print(f"{'Code':<5} {'Player Name':<15} {'Goals':<15} {'Total':>5}")
+    print('-' * 45)
+
+    for p in players:
+        print(f"{p['Code']:<5} {p['Name']:<15} {str(p['Goals']):<15} {p['TotalGoals']:>5}")
+
+    while True:
+        data = int(input('Show data of which player? '))
+        if data == 999:
+            break
+
+        if data < 0 or data >= len(players):
+            print('Wrong code.')
+        else:
+            p = players[data]
+            print(f'-- LEVANTAMENTO DO JOGADOR {p["Name"]}:')
+            for i, g in enumerate(p['Goals']):
+                print(f'In match {i} he made {g} goals.')
+
+    print('<< Come Back Again >>')
