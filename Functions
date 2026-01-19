@@ -1,0 +1,217 @@
+from random import randint
+from time import(sleep)
+from datetime import datetime
+print('-=-\033[2;32mExercises Menu\033[m-=-')
+
+print('[ 96 ] Area')
+print('[ 97 ] Making my own print?')
+print('[ 98 ] Counter')
+print('[ 99 ] Biggest')
+print('[ 100! ] List + function')
+print('[ 101 ] Voting')
+print('[ 102 ] My factorial function')
+print('[ 103 ] Player card')
+print('[ 104 ] My own input')
+print('[ 105 ] Grades')
+print('[ 106 ] Interactive Help')
+
+ex = int(input('Which exercise you want to execute? '))
+
+if ex == 96:
+    def area(base, height):
+        a = base * height
+        print(f'The area of a {base} by {height} is {a}m²')
+    print('Terrain Control')
+    print('-' * 20)
+    b = int(input('What\'s your terrain\'s base? '))
+    h = int(input('What\'s your terrain\'s height? '))
+    area(b, h)
+
+elif ex == 97:
+    def write(msg):
+        size = len(msg) + 4
+        print('~' * size)
+        print(msg.center(size))
+        print('~' * size)
+    write(msg = input('What do you want to do? '))
+
+elif ex == 98:
+    def line(msg, size=75):
+        print('-' * size)
+        print(msg.center(size))
+        print('-' * size)
+    def count():
+        line('Counting from 1 to 10, one by one...')
+        for i in range(1, 11):
+            print(i, end=', ' if i != 10 else ', END!')
+            sleep(.5)
+        print()
+
+        line('Counting from 10 to 0, two by two...')
+        for i in range(10, -1, -2):
+            print(i, end=', ' if i != 0 else ', END!')
+            sleep(.5)
+        print()
+
+        line("It's your time!")
+
+        start = int(input("Where will your count start? "))
+        end = int(input("Where will your count end? "))
+        step = int(input("How much your count will skip? "))
+
+        if step == 0:
+            print("Step cannot be zero.")
+            return
+
+        # Ajusta automaticamente o sinal do passo
+        if start > end and step > 0:
+            step = -step
+
+        for i in range(start, end + (1 if step > 0 else -1), step):
+            print(i, end=', ')
+            sleep(.5)
+
+        print('END!')
+    count()
+
+elif ex == 99:
+    def biggest(numbers):
+        numbers = sorted(numbers, reverse= True)
+        return numbers[0]
+    def analyzing():
+        print('-' * 30)
+        print('Analyzing the given numbers...')
+    def line():
+        print('-' * 30)
+    def redo():
+        analyzing()
+        num = []
+        nums = int(input('How many numbers do you want? '))
+        for i in range(nums):
+            num.append(int(input(f'Insert the number {i + 1}/{nums}: ')))
+        print(num, f'{len(num)} numbers were inserted.')
+        print(f'The biggest number is {biggest(num)}')
+        line()
+        print()
+    redo()
+    redo()
+    redo()
+    redo()
+    redo()
+
+elif ex == 100:
+    numbers = []
+    def sort():
+        for i in range(5):
+            numbers.append(randint(1,100))
+        print(numbers)
+    def sum_even():
+        sums = 0
+        for n in numbers:
+            if n % 2 == 0:
+                sums += n
+        print(f'The sum of the evens is {sums}')
+
+    sort()
+    sum_even()
+
+elif ex == 101:
+    def voting_status(birth):
+        age = datetime.today().year - birth
+        if age < 16:
+            return 'No voting allowed'
+        elif 16 <= age < 18:
+            return 'Optional voting!'
+        else:
+            return 'Obligated voting!'
+
+    birth = int(input('What year were you born? '))
+    print(voting_status(birth))
+
+elif ex == 102:
+    def factorial(num, show=False):
+        """
+        :param num: Number to calculate the factorial
+        :param show: True/False to show the calculating process
+        :return: Returns the result of the factorial
+        """
+        result = 1
+
+        for i in range(num, 0, -1):
+            result *= i
+            if show:
+                print(i, end=' x ' if i > 1 else ' = ')
+
+        return result
+
+
+    num = int(input('What factorial do you want? '))
+    show = input('Show the calculating process? [y/n]: ').lower() == 'y'
+
+    print(factorial(num, show))
+
+elif ex == 103:
+    def player_card(name='', goals=0):
+        print('-' * 30)
+        print(f'Player name: {name:<10}')
+        print(f'Amount of goals: {goals:<10}')
+        print(f'{name} has made {goals} goal(s).')
+        if name == '':
+            name = 'unknown'
+        print('-' * 30)
+    player_card(
+        name = str(input('What\'s the player\'s name? ')),
+        goals = int(input('How many goals? ')))
+
+elif ex == 104:
+    def readint(text):
+        ok = False
+        value = 0
+        while True:
+            n = str(input(text))
+            if n.isnumeric():
+                value = int(n)
+                ok = True
+            else:
+                print('\033[1;31mERROR! Please insert an integer number.\033[m')
+            if ok:
+                break
+        return value
+    n = readint('Type in a value: ')
+    print(f'You\'ve inserted the number {n}')
+
+elif ex == 105:
+    def grades(*numbers, sit=False):
+        """
+        :param numbers: Variable amount of grades
+        :return: dictionary with statistics
+        """
+        result = {}
+
+        result['total'] = len(numbers)
+        result['highest'] = max(numbers)
+        result['lowest'] = min(numbers)
+        result['average'] = sum(numbers) / len(numbers)
+        if sit:
+            if result['average'] > 7:
+                result['situation'] = 'GOOD'
+            else:
+                result['situation'] = 'BAD'
+
+        return result
+
+
+    stats = grades(9.0, 2.5, 10.0, sit=True)
+
+    print(f"There were {stats['total']} grades.")
+    print(f"The best grade was {stats['highest']}")
+    print(f"The worst grade was {stats['lowest']}")
+    print(f"The average grade was {stats['average']:.2f}")
+    print(f"The class situation was {stats['situation']}")
+
+elif ex == 106:
+    def interactive_help():
+        command = str(input('What command you want to learn? '))
+        help(command)
+    interactive_help()
+
